@@ -612,9 +612,6 @@ child: Stack(
             isLocalPlayersTurn: _isLocalPlayersTurn,
             resolvingTrick: _resolvingTrick,
             trickWinnerName: _trickWinnerName,
-            isCollectingTrick: _isCollectingTrick,
-            collectTowardLocalPlayer:
-                _collectTowardLocalPlayer,
             onBidConfirmed: _submitLocalBid,
           ),
 
