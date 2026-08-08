@@ -43,7 +43,8 @@ Timer? _roundTimer;
   bool _resolvingTrick = false;
   bool _timeoutBeingHandled = false;
   String? _trickWinnerName;
-
+bool _isCollectingTrick = false;
+bool _collectTowardLocalPlayer = false;
   Player get _localPlayer => _game.players.first;
 
   bool get _isLocalPlayersTurn =>
@@ -448,7 +449,15 @@ await Future.delayed(
       _resolvingTrick = true;
     });
 
- setState(() {
+await Future<void>.delayed(
+  const Duration(seconds: 1),
+);
+
+if (!mounted) {
+  return;
+}
+
+setState(() {
   _trickWinnerName = winnerName;
 });
 
@@ -456,20 +465,48 @@ await Future<void>.delayed(
   const Duration(seconds: 3),
 );
 
-    if (!mounted) {
-      return;
-    }
+if (!mounted) {
+  return;
+}
 
-    setState(() {
-      _game =
-          TrickEngine.resolveCompletedTrick(
-        _game,
-      );
+setState(() {
+  _trickWinnerName = null;
+  _isCollectingTrick = false;
+  _collectTowardLocalPlayer =
+      _game.players[winnerIndex].id ==
+          _localPlayer.id;
+});
 
-      _resolvingTrick = false;
-      _selectedCard = null;
-      _trickWinnerName = null;
-    });
+await Future<void>.delayed(
+  const Duration(milliseconds: 50),
+);
+
+if (!mounted) {
+  return;
+}
+
+setState(() {
+  _isCollectingTrick = true;
+});
+
+await Future<void>.delayed(
+  const Duration(milliseconds: 450),
+);
+
+if (!mounted) {
+  return;
+}
+
+setState(() {
+  _game =
+      TrickEngine.resolveCompletedTrick(
+    _game,
+  );
+
+  _resolvingTrick = false;
+  _selectedCard = null;
+  _isCollectingTrick = false;
+});
 
     if (_game.phase ==
         GamePhase.roundComplete) {
@@ -575,6 +612,9 @@ child: Stack(
             isLocalPlayersTurn: _isLocalPlayersTurn,
             resolvingTrick: _resolvingTrick,
             trickWinnerName: _trickWinnerName,
+            isCollectingTrick: _isCollectingTrick,
+            collectTowardLocalPlayer:
+                _collectTowardLocalPlayer,
             onBidConfirmed: _submitLocalBid,
           ),
 

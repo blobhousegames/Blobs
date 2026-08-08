@@ -15,86 +15,97 @@ class RoundStartOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 280,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 26,
+return Container(
+  width: 260,
+  padding: const EdgeInsets.symmetric(
+    horizontal: 20,
+    vertical: 10,
+  ),
+  decoration: BoxDecoration(
+    color: const Color(0xFFE7D7A7),
+    borderRadius: BorderRadius.circular(24),
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.black26,
+        blurRadius: 18,
+        offset: Offset(0, 7),
       ),
-      decoration: BoxDecoration(
-        color: const Color(0xFFE7D7A7),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 18,
-            offset: Offset(0, 7),
-          ),
-        ],
-      ),
+    ],
+  ),
+  child: FittedBox(
+    fit: BoxFit.scaleDown,
+    child: SizedBox(
+      width: 220,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'ROUND ${game.roundNumber}',
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF173B30),
-              fontSize: 26,
+              fontSize: 22,
               fontWeight: FontWeight.w900,
-              letterSpacing: 2,
+              letterSpacing: 1.5,
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 8),
           Text(
             '${game.cardsPerPlayer} CARDS',
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF315C4D),
-              fontSize: 17,
+              fontSize: 15,
               fontWeight: FontWeight.w800,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
           Text(
             _trumpText(game.trumpSuit),
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF173B30),
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: FontWeight.w900,
             ),
           ),
           if (game.trumpSuit == null) ...[
-            const SizedBox(height: 5),
+            const SizedBox(height: 3),
             const Text(
               'First card played sets trump',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF315C4D),
-                fontSize: 12,
+                fontSize: 11,
                 fontWeight: FontWeight.w700,
               ),
             ),
           ],
-          const SizedBox(height: 14),
+          const SizedBox(height: 8),
           Text(
             'Dealer: ${game.dealer.name}',
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF315C4D),
+              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 10),
           Text(
             'Starting in $secondsRemaining...',
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF173B30),
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w900,
             ),
           ),
         ],
       ),
-    );
+    ),
+  ),
+);
   }
 
   static String _trumpText(Suit? suit) {

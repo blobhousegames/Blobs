@@ -11,6 +11,8 @@ class TableCentre extends StatelessWidget {
     required this.resolvingTrick,
     required this.trickWinnerName,
     required this.onBidConfirmed,
+    required this.isCollectingTrick,
+required this.collectTowardLocalPlayer,
     super.key,
   });
 
@@ -19,7 +21,8 @@ class TableCentre extends StatelessWidget {
   final bool resolvingTrick;
   final String? trickWinnerName;
   final ValueChanged<int> onBidConfirmed;
-
+final bool isCollectingTrick;
+final bool collectTowardLocalPlayer;
   @override
   Widget build(BuildContext context) {
     if (trickWinnerName != null) {
@@ -51,19 +54,40 @@ class TableCentre extends StatelessWidget {
       );
     }
 
-    if (resolvingTrick) {
-      return _CurrentTrick(
-        game: game,
-        footer: 'Resolving trick...',
-      );
-    }
+if (resolvingTrick && !isCollectingTrick) {
+  return _CurrentTrick(
+    game: game,
+    footer: 'Resolving trick...',
+  );
+}
 
-    return _CurrentTrick(
+return AnimatedSlide(
+  duration: const Duration(
+    milliseconds: 450,
+  ),
+  curve: Curves.easeInCubic,
+  offset: isCollectingTrick
+      ? Offset(
+          0,
+          collectTowardLocalPlayer
+              ? 1.8
+              : -1.8,
+        )
+      : Offset.zero,
+  child: AnimatedOpacity(
+    duration: const Duration(
+      milliseconds: 350,
+    ),
+    opacity:
+        isCollectingTrick ? 0 : 1,
+    child: _CurrentTrick(
       game: game,
       footer: game.currentTrick.isEmpty
           ? '${game.currentPlayer.name} leads'
           : '${game.currentPlayer.name} to play',
-    );
+    ),
+  ),
+);
   }
 }
 

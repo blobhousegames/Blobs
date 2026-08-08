@@ -105,34 +105,44 @@ class _PlayerHandState extends State<PlayerHand> {
               index < _visibleCardCount;
 
           return AnimatedOpacity(
-            duration: const Duration(
-              milliseconds: 180,
+  duration: const Duration(
+    milliseconds: 180,
+  ),
+  opacity: isVisible ? 1 : 0,
+  child: AnimatedScale(
+    duration: const Duration(
+      milliseconds: 220,
+    ),
+    curve: Curves.easeOutBack,
+    scale: isVisible ? 1 : 0.75,
+    child: AnimatedSlide(
+      duration: const Duration(
+        milliseconds: 260,
+      ),
+      curve: Curves.easeOutCubic,
+      offset: isVisible
+          ? Offset.zero
+          : Offset(
+              1.8 - (index * 0.08),
+              -1.4,
             ),
-            opacity: isVisible ? 1 : 0,
-            child: AnimatedSlide(
-              duration: const Duration(
-                milliseconds: 220,
-              ),
-              curve: Curves.easeOutCubic,
-              offset: isVisible
-                  ? Offset.zero
-                  : const Offset(0, 0.7),
-              child: IgnorePointer(
-                ignoring: !isVisible,
-                child: GestureDetector(
-                  onTap: isLegal
-                      ? () => widget.onCardSelected(card)
-                      : null,
-                  child: PlayingCardWidget(
-                    card: card,
-                    isPlayable: isLegal,
-                    isSelected:
-                        widget.selectedCard == card,
-                  ),
-                ),
-              ),
-            ),
-          );
+      child: IgnorePointer(
+        ignoring: !isVisible,
+        child: GestureDetector(
+          onTap: isLegal
+              ? () => widget.onCardSelected(card)
+              : null,
+          child: PlayingCardWidget(
+            card: card,
+            isPlayable: isLegal,
+            isSelected:
+                widget.selectedCard == card,
+          ),
+        ),
+      ),
+    ),
+  ),
+);
         },
       ),
     );
