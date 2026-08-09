@@ -170,64 +170,69 @@ class _CurrentTrick extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        minWidth: 230,
-      ),
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: const Color(0x33102D25),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: const Color(0xFF5F8878),
+  constraints: const BoxConstraints(
+    minWidth: 210,
+    maxWidth: 260,
+  ),
+  padding: const EdgeInsets.symmetric(
+    horizontal: 12,
+    vertical: 10,
+  ),
+  decoration: BoxDecoration(
+    color: const Color(0x33102D25),
+    borderRadius: BorderRadius.circular(24),
+    border: Border.all(
+      color: const Color(0xFF5F8878),
+    ),
+  ),
+  child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const Text(
+        'CURRENT TRICK',
+        style: TextStyle(
+          color: Color(0xFFF7F0DC),
+          fontSize: 12,
+          fontWeight: FontWeight.w900,
+          letterSpacing: 1.2,
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'CURRENT TRICK',
-            style: TextStyle(
-              color: Color(0xFFF7F0DC),
-              fontSize: 13,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 1.3,
-            ),
-          ),
-          const SizedBox(height: 14),
 
-          if (game.currentTrick.isEmpty)
-            const Icon(
-              Icons.layers_rounded,
-              color: Color(0xFFE7D7A7),
-              size: 38,
-            )
-          else
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              alignment: WrapAlignment.center,
-              children: [
-                for (final played in game.currentTrick)
-                  _PlayedCardWidget(
-                    playerName: played.player.name,
-                    card: played.card,
-                  ),
-              ],
-            ),
+      const SizedBox(height: 8),
 
-          const SizedBox(height: 14),
+      if (game.currentTrick.isEmpty)
+        const Icon(
+          Icons.layers_rounded,
+          color: Color(0xFFE7D7A7),
+          size: 30,
+        )
+      else
+        Wrap(
+          spacing: 7,
+          runSpacing: 7,
+          alignment: WrapAlignment.center,
+          children: [
+            for (final played in game.currentTrick)
+              _PlayedCardWidget(
+                playerName: played.player.name,
+                card: played.card,
+              ),
+          ],
+        ),
 
-          Text(
-            footer,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFFD8D0BD),
-              fontSize: 12,
-            ),
-          ),
-        ],
+      const SizedBox(height: 8),
+
+      Text(
+        footer,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Color(0xFFD8D0BD),
+          fontSize: 11,
+        ),
       ),
-    );
+    ],
+  ),
+);
   }
 }
 class _PlayedCardWidget extends StatelessWidget {
@@ -244,9 +249,9 @@ class _PlayedCardWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 58,
-          height: 78,
-          padding: const EdgeInsets.all(7),
+          width: 48,
+          height: 64,
+          padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             color: const Color(0xFFF8F3E6),
             borderRadius: BorderRadius.circular(10),

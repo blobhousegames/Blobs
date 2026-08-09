@@ -15,6 +15,7 @@ import '../widgets/round_start_overlay.dart';
 import '../widgets/table_centre.dart';
 import '../widgets/deck_widget.dart';
 import '../widgets/opponent_strip.dart';
+import '../widgets/table_seat_layer.dart';
 import '../widgets/trick_collection_overlay.dart';
 
 class TableScreen extends StatefulWidget {
@@ -617,6 +618,10 @@ setState(() {
 child: Stack(
   alignment: Alignment.center,
   children: [
+    TableSeatLayer(
+  players: _game.players,
+  currentPlayerId: _game.currentPlayer.id,
+),
     _showRoundOverlay
         ? RoundStartOverlay(
             game: _game,
