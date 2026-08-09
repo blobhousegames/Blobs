@@ -13,7 +13,9 @@ import '../widgets/player_hand.dart';
 import 'round_results_screen.dart';
 import '../widgets/round_start_overlay.dart';
 import '../widgets/table_centre.dart';
+import '../widgets/deck_widget.dart';
 import '../widgets/opponent_strip.dart';
+import '../widgets/trick_collection_overlay.dart';
 
 class TableScreen extends StatefulWidget {
   const TableScreen({
@@ -72,11 +74,13 @@ bool _collectTowardLocalPlayer = false;
 });
   }
 
-  @override
-  void dispose() {
-    _turnTimer?.cancel();
-    super.dispose();
-  }
+@override
+void dispose() {
+  _turnTimer?.cancel();
+  _roundTimer?.cancel();
+  super.dispose();
+}
+
 void _startRoundCountdown() {
   _roundCountdown = 3;
   _showRoundOverlay = true;
@@ -97,6 +101,17 @@ void _startRoundCountdown() {
         setState(() {
           _showRoundOverlay = false;
         });
+
+
+
+Future<void>.delayed(
+  const Duration(milliseconds: 500),
+  () {
+    if (!mounted) return;
+
+
+  },
+);
 
         _startTurnTimer();
         _continueAutomaticTurns();
@@ -614,6 +629,25 @@ child: Stack(
             trickWinnerName: _trickWinnerName,
             onBidConfirmed: _submitLocalBid,
           ),
+if (!_showRoundOverlay &&
+    _game.phase != GamePhase.playing)
+  const Positioned(
+    right: 18,
+    bottom: 18,
+    child: DeckWidget(),
+  ),
+
+if (_isCollectingTrick &&
+    _trickWinnerName == null)
+  TrickCollectionOverlay(
+    cards: _game.currentTrick
+        .map((played) => played.card)
+        .toList(),
+    collectTowardLocalPlayer:
+        _collectTowardLocalPlayer,
+    animate: true,
+  ),
+
 
     if (_isAnimatingCard && _animatingCard != null)
 TweenAnimationBuilder<Offset>(

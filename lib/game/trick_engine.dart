@@ -76,7 +76,10 @@ class TrickEngine {
         card: card,
       ),
     ];
-
+final updatedTrumpSuit =
+    game.trumpSuit == null && game.currentTrick.isEmpty
+        ? card.suit
+        : game.trumpSuit;
     final trickComplete =
         updatedTrick.length == updatedPlayers.length;
 
@@ -88,6 +91,7 @@ class TrickEngine {
             players: updatedPlayers,
           ),
           currentTrick: updatedTrick,
+          trumpSuit: updatedTrumpSuit,
         ),
         trickComplete: true,
       );
