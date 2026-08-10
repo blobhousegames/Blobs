@@ -17,10 +17,10 @@ class TableSeatLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final seatAlignments =
-        TableLayout.alignmentsForPlayerCount(
-      players.length,
-    );
+    final seatPositions =
+    TableLayout.positionsForPlayerCount(
+  players.length,
+);
 
     return Stack(
       children: [
@@ -28,7 +28,8 @@ class TableSeatLayer extends StatelessWidget {
             index < players.length;
             index++)
           TableSeat(
-            alignment: seatAlignments[index],
+            alignment: seatPositions[index].alignment,
+            offset: seatPositions[index].offset,
             child: OpponentSeat(
               player: players[index],
               isCurrentPlayer:

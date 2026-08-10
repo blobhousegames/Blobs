@@ -14,9 +14,9 @@ import 'round_results_screen.dart';
 import '../widgets/round_start_overlay.dart';
 import '../widgets/table_centre.dart';
 import '../widgets/deck_widget.dart';
-import '../widgets/opponent_strip.dart';
 import '../widgets/table_seat_layer.dart';
 import '../widgets/trick_collection_overlay.dart';
+import '../widgets/game_table.dart';
 
 class TableScreen extends StatefulWidget {
   const TableScreen({
@@ -594,11 +594,6 @@ setState(() {
 
       const SizedBox(height: 12),
 
-      OpponentStrip(
-        players: _game.players.skip(1).toList(),
-        currentPlayerId: _game.currentPlayer.id,
-      ),
-
       const SizedBox(height: 12),
 
       Expanded(
@@ -615,7 +610,8 @@ setState(() {
                 color: const Color(0xFF4D7868),
               ),
             ),
-child: Stack(
+child: GameTable(
+ child: Stack(
   alignment: Alignment.center,
   children: [
     TableSeatLayer(
@@ -688,7 +684,7 @@ TweenAnimationBuilder<Offset>(
           ),
         ),
       ),
-
+      ),
       const SizedBox(height: 12),
 
       _YourSeat(

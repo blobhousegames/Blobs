@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class TableSeat extends StatelessWidget {
   const TableSeat({
     required this.alignment,
+    required this.offset,
     required this.child,
     this.padding = const EdgeInsets.all(12),
     super.key,
   });
 
   final Alignment alignment;
+  final Offset offset;
   final Widget child;
   final EdgeInsets padding;
 
@@ -19,7 +21,10 @@ class TableSeat extends StatelessWidget {
         padding: padding,
         child: Align(
           alignment: alignment,
-          child: child,
+          child: Transform.translate(
+            offset: offset,
+            child: child,
+          ),
         ),
       ),
     );
