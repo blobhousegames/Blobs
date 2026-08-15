@@ -102,16 +102,17 @@ final updatedTrumpSuit =
             updatedPlayers.length;
 
     return TrickResult(
-      game: game.copyWith(
-        players: updatedPlayers,
-        lobby: game.lobby.copyWith(
-          players: updatedPlayers,
-        ),
-        currentPlayerIndex: nextPlayerIndex,
-        currentTrick: updatedTrick,
-      ),
-      trickComplete: false,
-    );
+  game: game.copyWith(
+    players: updatedPlayers,
+    lobby: game.lobby.copyWith(
+      players: updatedPlayers,
+    ),
+    currentPlayerIndex: nextPlayerIndex,
+    currentTrick: updatedTrick,
+    trumpSuit: updatedTrumpSuit,
+  ),
+  trickComplete: false,
+);
   }
 static Game resolveCompletedTrick(Game game) {
   if (game.currentTrick.length != game.players.length) {

@@ -17,6 +17,8 @@ import '../widgets/deck_widget.dart';
 import '../widgets/table_seat_layer.dart';
 import '../widgets/trick_collection_overlay.dart';
 import '../widgets/game_table.dart';
+import '../widgets/game_room.dart';
+import '../widgets/blob_avatar.dart';
 
 class TableScreen extends StatefulWidget {
   const TableScreen({
@@ -585,9 +587,10 @@ setState(() {
       ),
     ],
   ),
- body: SafeArea(
-  child: Column(
-    children: [
+body: GameRoom(
+  child: SafeArea(
+    child: Column(
+      children: [
       _GameStatusBar(
         game: _game,
       ),
@@ -599,25 +602,26 @@ setState(() {
       Expanded(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
+  horizontal: 80,
+  vertical: 24,
+),
           child: Container(
             width: double.infinity,
-            decoration: BoxDecoration(
-              color: const Color(0xFF1D4A3C),
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                color: const Color(0xFF4D7868),
-              ),
-            ),
-child: GameTable(
- child: Stack(
+           decoration: const BoxDecoration(
+  color: Colors.transparent,
+),
+child: Stack(
   alignment: Alignment.center,
   children: [
     TableSeatLayer(
-  players: _game.players,
-  currentPlayerId: _game.currentPlayer.id,
-),
+      players: _game.players,
+      currentPlayerId: _game.currentPlayer.id,
+    ),
+
+    GameTable(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
     _showRoundOverlay
         ? RoundStartOverlay(
             game: _game,
@@ -679,12 +683,14 @@ TweenAnimationBuilder<Offset>(
     );
   },
 ),
+        ],
+      ), // inner Stack
+    ), // GameTable
   ],
-),
-          ),
-        ),
-      ),
-      ),
+), // outer Stack
+), // Container
+), // Padding
+), // Expanded
       const SizedBox(height: 12),
 
       _YourSeat(
@@ -746,11 +752,12 @@ TweenAnimationBuilder<Offset>(
         ),
       ),
 
-      const SizedBox(height: 18),
-          ],
-        ),
-      ),
-    );
+const SizedBox(height: 18),
+],
+), // Column
+), // SafeArea
+), // GameRoom
+); // Scaffold
   }
 
   String get _buttonLabel {
@@ -869,17 +876,36 @@ class _YourSeat
               isCurrentPlayer ? 3 : 1,
         ),
       ),
-      child: Text(
-        '${player.name} • '
-        'Bid ${player.bid ?? '-'} • '
-        '${player.tricksWon} tricks',
-        style: const TextStyle(
-          color:
-              Color(0xFF173B30),
-          fontWeight:
-              FontWeight.w900,
-        ),
+      child: Column(
+  mainAxisSize: MainAxisSize.min,
+  children: [
+    BlobAvatar(
+      isActive: isCurrentPlayer,
+    ),
+
+    const SizedBox(height: 6),
+
+    Text(
+      player.name,
+      style: const TextStyle(
+        color: Color(0xFF173B30),
+        fontWeight: FontWeight.w900,
       ),
+    ),
+
+    const SizedBox(height: 2),
+
+    Text(
+      'Bid ${player.bid ?? '-'} • '
+      '${player.tricksWon} tricks',
+      style: const TextStyle(
+        color: Color(0xFF315C4D),
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+  ],
+), // Column
     );
   }
 }

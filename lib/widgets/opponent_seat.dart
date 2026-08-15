@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/player.dart';
+import 'blob_avatar.dart';
 
 class OpponentSeat extends StatelessWidget {
   const OpponentSeat({
@@ -14,57 +15,40 @@ class OpponentSeat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
+    return AnimatedScale(
       duration: const Duration(
-        milliseconds: 250,
+        milliseconds: 220,
       ),
-      width: 130,
-      padding: const EdgeInsets.all(9),
-      decoration: BoxDecoration(
-        color: const Color(0xDD173B30),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isCurrentPlayer
-              ? const Color(0xFFE7D7A7)
-              : const Color(0xFF668D7E),
-          width: isCurrentPlayer ? 2 : 1,
-        ),
-      ),
-      child: Row(
+      scale: isCurrentPlayer ? 1.06 : 1.0,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const CircleAvatar(
-            radius: 17,
-            backgroundColor: Color(0xFFE7D7A7),
-            foregroundColor: Color(0xFF173B30),
-            child: Icon(
-              Icons.person_rounded,
-              size: 19,
+          BlobAvatar(
+  isActive: isCurrentPlayer,
+),
+
+          const SizedBox(height: 7),
+
+          Text(
+            player.name,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFFF7F0DC),
+              fontSize: 13,
+              fontWeight: FontWeight.w900,
             ),
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  player.name,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFFF7F0DC),
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                Text(
-                  'Bid ${player.bid ?? '-'} • '
-                  '${player.tricksWon} tricks',
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFFD8D0BD),
-                    fontSize: 10,
-                  ),
-                ),
-              ],
+
+          const SizedBox(height: 2),
+
+          Text(
+            'Bid ${player.bid ?? '-'} • ${player.tricksWon}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFFD8D0BD),
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],

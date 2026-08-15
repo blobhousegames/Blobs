@@ -20,6 +20,7 @@ class PlayedCard {
   final Player player;
   final PlayingCard card;
 }
+const _unsetTrump = Object();
 
 class Game {
   const Game({
@@ -58,7 +59,7 @@ class Game {
     int? dealerIndex,
     int? currentPlayerIndex,
     GamePhase? phase,
-    Suit? trumpSuit,
+    Object? trumpSuit = _unsetTrump,
     List<PlayedCard>? currentTrick,
   }) {
     return Game(
@@ -69,7 +70,9 @@ class Game {
       dealerIndex: dealerIndex ?? this.dealerIndex,
       currentPlayerIndex: currentPlayerIndex ?? this.currentPlayerIndex,
       phase: phase ?? this.phase,
-      trumpSuit: trumpSuit ?? this.trumpSuit,
+      trumpSuit: identical(trumpSuit, _unsetTrump)
+    ? this.trumpSuit
+    : trumpSuit as Suit?,
       currentTrick: currentTrick ?? this.currentTrick,
     );
   }
