@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "2338770254",
+    "project_id": "blobs-78b7d",
+    "storage_bucket": "blobs-78b7d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2338770254:android:df6e0f137359d5a670e21f",
+        "android_client_info": {
+          "package_name": "com.blobhousegames.blobs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCijRLFFRgVmKuDImt41TO7mz_pXKiw_NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
